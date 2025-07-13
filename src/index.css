@@ -2,41 +2,53 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
-*/
+/* Live Note Formatter Design System - Clean, modern document editor aesthetics */
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    /* Main backgrounds */
+    --background: 220 14% 97%; /* Light gray #F8F9FA equivalent */
+    --foreground: 210 11% 22%; /* Dark gray #343A40 equivalent */
 
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    /* Panel and card styling */
+    --card: 0 0% 100%; /* Pure white */
+    --card-foreground: 210 11% 22%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --popover-foreground: 210 11% 22%;
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    /* Professional blue primary - #007BFF */
+    --primary: 212 100% 50%;
+    --primary-foreground: 0 0% 100%;
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    /* Subtle grays for secondary elements */
+    --secondary: 210 20% 96%;
+    --secondary-foreground: 210 11% 22%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    --muted: 210 20% 96%;
+    --muted-foreground: 215 16% 47%;
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    --accent: 210 20% 96%;
+    --accent-foreground: 210 11% 22%;
 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    /* Muted red for delete actions - #DC3545 */
+    --destructive: 354 70% 54%;
+    --destructive-foreground: 0 0% 100%;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    /* Borders and inputs */
+    --border: 210 20% 90%;
+    --input: 210 20% 90%;
+    --ring: 212 100% 50%;
 
     --radius: 0.5rem;
+
+    /* Document-specific design tokens */
+    --paper-white: 0 0% 100%;
+    --paper-shadow: 210 20% 85%;
+    --document-text: 210 11% 22%;
+    
+    /* A4 aspect ratio helper */
+    --a4-ratio: 1.414;
 
     --sidebar-background: 0 0% 98%;
 
@@ -101,5 +113,59 @@ All colors MUST be HSL.
 
   body {
     @apply bg-background text-foreground;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  }
+}
+
+/* Live Preview PDF Styling - Must match final PDF output exactly */
+@layer components {
+  .notes-container {
+    column-count: 2;
+    column-gap: 30px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 9pt;
+    line-height: 1.4;
+    padding: 20px;
+    background: hsl(var(--paper-white));
+    color: hsl(var(--document-text));
+  }
+  
+  .notes-container h3 {
+    font-weight: bold;
+    font-size: 11pt;
+    margin-top: 15px;
+    margin-bottom: 5px;
+    color: hsl(var(--document-text));
+    break-inside: avoid;
+  }
+  
+  .notes-container p {
+    margin-top: 0;
+    margin-bottom: 8px;
+    text-align: justify;
+    hyphens: auto;
+  }
+  
+  .content-block {
+    break-inside: avoid;
+    margin-bottom: 10px;
+  }
+  
+  /* A4 Paper simulation */
+  .a4-paper {
+    aspect-ratio: 1/1.414; /* A4 ratio */
+    background: hsl(var(--paper-white));
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    border-radius: 2px;
+    overflow: hidden;
+    position: relative;
+  }
+  
+  /* Panel styling */
+  .app-panel {
+    background: hsl(var(--card));
+    border-radius: var(--radius);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    border: 1px solid hsl(var(--border));
   }
 }
