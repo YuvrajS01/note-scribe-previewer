@@ -17,7 +17,7 @@ export const LivePreview = ({ blocks, fontSize, lineGap, paragraphGap, leftColum
   return (
     <div className="app-panel p-6 live-preview-root">
       <h3 className="text-lg font-semibold text-foreground mb-4">Live Preview</h3>
-      <div className="w-full max-w-[600px] mx-auto">
+      <div className="w-full max-w-4xl mx-auto">
         <div className="a4-paper w-full">
           <div className="notes-container grid grid-cols-2 gap-x-4">
             <div className="flex flex-col" style={{ rowGap: `${leftColumnGap}px` }}>
