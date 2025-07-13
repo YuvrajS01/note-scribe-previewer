@@ -98,14 +98,6 @@ export const LiveNoteFormatter = () => {
               onDownloadPdf={downloadPdf}
               fontSize={fontSize}
               onFontSizeChange={setFontSize}
-              lineGap={lineGap}
-              onLineGapChange={setLineGap}
-              paragraphGap={paragraphGap}
-              onParagraphGapChange={setParagraphGap}
-              leftColumnGap={leftColumnGap}
-              onLeftColumnGapChange={setLeftColumnGap}
-              rightColumnGap={rightColumnGap}
-              onRightColumnGapChange={setRightColumnGap}
             />
           </div>
         </div>
@@ -122,14 +114,6 @@ export const LiveNoteFormatter = () => {
             onDownloadPdf={downloadPdf}
             fontSize={fontSize}
             onFontSizeChange={setFontSize}
-            lineGap={lineGap}
-            onLineGapChange={setLineGap}
-            paragraphGap={paragraphGap}
-            onParagraphGapChange={setParagraphGap}
-            leftColumnGap={leftColumnGap}
-            onLeftColumnGapChange={setLeftColumnGap}
-            rightColumnGap={rightColumnGap}
-            onRightColumnGapChange={setRightColumnGap}
           />
           
           {/* Live Preview */}
