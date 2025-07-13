@@ -29,11 +29,17 @@ export const DocumentOutline = ({ blocks, onDeleteBlock, onDownloadPdf, fontSize
             <SelectValue />
           </SelectTrigger>
           <SelectContent>
+            <SelectItem value="4">4pt - Tiny</SelectItem>
+            <SelectItem value="5">5pt - XXS</SelectItem>
+            <SelectItem value="6">6pt - XS</SelectItem>
+            <SelectItem value="7">7pt - Extra Small</SelectItem>
             <SelectItem value="8">8pt - Small</SelectItem>
             <SelectItem value="9">9pt - Default</SelectItem>
             <SelectItem value="10">10pt - Medium</SelectItem>
             <SelectItem value="11">11pt - Large</SelectItem>
             <SelectItem value="12">12pt - Extra Large</SelectItem>
+            <SelectItem value="14">14pt - Huge</SelectItem>
+            <SelectItem value="16">16pt - Massive</SelectItem>
           </SelectContent>
         </Select>
       </div>

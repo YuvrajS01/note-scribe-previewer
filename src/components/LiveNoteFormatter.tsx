@@ -4,10 +4,16 @@ import { InputPanel } from './InputPanel';
 import { LivePreview } from './LivePreview';
 import { DocumentOutline } from './DocumentOutline';
 import { useToast } from '@/hooks/use-toast';
+import { jsPDF } from "jspdf";
+import html2canvas from "html2canvas";
 
 export const LiveNoteFormatter = () => {
   const [blocks, setBlocks] = useState<ContentBlock[]>([]);
   const [fontSize, setFontSize] = useState(9); // Default 9pt
+  const [lineGap, setLineGap] = useState(4); // px
+  const [paragraphGap, setParagraphGap] = useState(12); // px
+  const [leftColumnGap, setLeftColumnGap] = useState(12); // px
+  const [rightColumnGap, setRightColumnGap] = useState(12); // px
   const { toast } = useToast();
 
   const addContent = (topic: string, notes: string, images?: string[]) => {
@@ -38,10 +44,23 @@ export const LiveNoteFormatter = () => {
   };
 
   const downloadPdf = async () => {
-    // For now, we'll show a toast. PDF generation will be implemented later
+    const previewElement = document.querySelector(".a4-paper");
+    if (!previewElement) {
+      toast({
+        title: "PDF Error",
+        description: "A4 paper preview not found. PDF export failed.",
+        variant: "destructive",
+      });
+      return;
+    }
+    const canvas = await html2canvas(previewElement as HTMLElement, { scale: 3, useCORS: true });
+    const imgData = canvas.toDataURL("image/png", 1.0);
+    const pdf = new jsPDF({ orientation: "portrait", unit: "px", format: [canvas.width, canvas.height] });
+    pdf.addImage(imgData, "PNG", 0, 0, canvas.width, canvas.height, undefined, 'FAST');
+    pdf.save("notes.pdf");
     toast({
-      title: "PDF Generation",
-      description: "PDF download functionality will be implemented in the next iteration.",
+      title: "PDF Downloaded",
+      description: "Your A4 preview has been exported as a sharp PDF.",
     });
   };
 
@@ -68,7 +87,7 @@ export const LiveNoteFormatter = () => {
           
           {/* Live Preview Panel - 50% */}
           <div className="col-span-6">
-            <LivePreview blocks={blocks} fontSize={fontSize} />
+            <LivePreview blocks={blocks} fontSize={fontSize} lineGap={lineGap} paragraphGap={paragraphGap} leftColumnGap={leftColumnGap} rightColumnGap={rightColumnGap} />
           </div>
           
           {/* Document Outline Panel - 25% */}
@@ -79,6 +98,14 @@ export const LiveNoteFormatter = () => {
               onDownloadPdf={downloadPdf}
               fontSize={fontSize}
               onFontSizeChange={setFontSize}
+              lineGap={lineGap}
+              onLineGapChange={setLineGap}
+              paragraphGap={paragraphGap}
+              onParagraphGapChange={setParagraphGap}
+              leftColumnGap={leftColumnGap}
+              onLeftColumnGapChange={setLeftColumnGap}
+              rightColumnGap={rightColumnGap}
+              onRightColumnGapChange={setRightColumnGap}
             />
           </div>
         </div>
@@ -95,10 +122,18 @@ export const LiveNoteFormatter = () => {
             onDownloadPdf={downloadPdf}
             fontSize={fontSize}
             onFontSizeChange={setFontSize}
+            lineGap={lineGap}
+            onLineGapChange={setLineGap}
+            paragraphGap={paragraphGap}
+            onParagraphGapChange={setParagraphGap}
+            leftColumnGap={leftColumnGap}
+            onLeftColumnGapChange={setLeftColumnGap}
+            rightColumnGap={rightColumnGap}
+            onRightColumnGapChange={setRightColumnGap}
           />
           
           {/* Live Preview */}
-          <LivePreview blocks={blocks} fontSize={fontSize} />
+          <LivePreview blocks={blocks} fontSize={fontSize} lineGap={lineGap} paragraphGap={paragraphGap} leftColumnGap={leftColumnGap} rightColumnGap={rightColumnGap} />
         </div>
       </main>
     </div>
