@@ -1,18 +1,42 @@
 import { Button } from '@/components/ui/button';
 import { ScrollArea } from '@/components/ui/scroll-area';
-import { Trash2, Download } from 'lucide-react';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Label } from '@/components/ui/label';
+import { Trash2, Download, Type } from 'lucide-react';
 import { ContentBlock } from './ContentBlock';
 
 interface DocumentOutlineProps {
   blocks: ContentBlock[];
   onDeleteBlock: (id: string) => void;
   onDownloadPdf: () => void;
+  fontSize: number;
+  onFontSizeChange: (size: number) => void;
 }
 
-export const DocumentOutline = ({ blocks, onDeleteBlock, onDownloadPdf }: DocumentOutlineProps) => {
+export const DocumentOutline = ({ blocks, onDeleteBlock, onDownloadPdf, fontSize, onFontSizeChange }: DocumentOutlineProps) => {
   return (
     <div className="app-panel p-6 flex flex-col h-fit">
       <h3 className="text-lg font-semibold text-foreground mb-4">Document Content</h3>
+      
+      {/* Font Size Control */}
+      <div className="mb-4 space-y-2">
+        <Label htmlFor="font-size" className="text-sm font-medium flex items-center gap-2">
+          <Type className="w-4 h-4" />
+          Font Size
+        </Label>
+        <Select value={fontSize.toString()} onValueChange={(value) => onFontSizeChange(Number(value))}>
+          <SelectTrigger id="font-size" className="w-full">
+            <SelectValue />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="8">8pt - Small</SelectItem>
+            <SelectItem value="9">9pt - Default</SelectItem>
+            <SelectItem value="10">10pt - Medium</SelectItem>
+            <SelectItem value="11">11pt - Large</SelectItem>
+            <SelectItem value="12">12pt - Extra Large</SelectItem>
+          </SelectContent>
+        </Select>
+      </div>
       
       <ScrollArea className="flex-1 max-h-[400px] mb-4">
         {blocks.length === 0 ? (

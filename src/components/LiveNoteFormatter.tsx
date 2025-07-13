@@ -7,13 +7,15 @@ import { useToast } from '@/hooks/use-toast';
 
 export const LiveNoteFormatter = () => {
   const [blocks, setBlocks] = useState<ContentBlock[]>([]);
+  const [fontSize, setFontSize] = useState(9); // Default 9pt
   const { toast } = useToast();
 
-  const addContent = (topic: string, notes: string) => {
+  const addContent = (topic: string, notes: string, images?: string[]) => {
     const newBlock: ContentBlock = {
       id: crypto.randomUUID(),
       topic,
       notes,
+      images,
       createdAt: new Date(),
     };
     
@@ -66,7 +68,7 @@ export const LiveNoteFormatter = () => {
           
           {/* Live Preview Panel - 50% */}
           <div className="col-span-6">
-            <LivePreview blocks={blocks} />
+            <LivePreview blocks={blocks} fontSize={fontSize} />
           </div>
           
           {/* Document Outline Panel - 25% */}
@@ -75,6 +77,8 @@ export const LiveNoteFormatter = () => {
               blocks={blocks}
               onDeleteBlock={deleteBlock}
               onDownloadPdf={downloadPdf}
+              fontSize={fontSize}
+              onFontSizeChange={setFontSize}
             />
           </div>
         </div>
@@ -89,10 +93,12 @@ export const LiveNoteFormatter = () => {
             blocks={blocks}
             onDeleteBlock={deleteBlock}
             onDownloadPdf={downloadPdf}
+            fontSize={fontSize}
+            onFontSizeChange={setFontSize}
           />
           
           {/* Live Preview */}
-          <LivePreview blocks={blocks} />
+          <LivePreview blocks={blocks} fontSize={fontSize} />
         </div>
       </main>
     </div>

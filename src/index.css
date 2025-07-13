@@ -151,6 +151,14 @@
     margin-bottom: 10px;
   }
   
+  .block-images img {
+    max-width: 100%;
+    height: auto;
+    break-inside: avoid;
+    display: block;
+    margin: 4px 0;
+  }
+  
   /* A4 Paper simulation */
   .a4-paper {
     aspect-ratio: 1/1.414; /* A4 ratio */
