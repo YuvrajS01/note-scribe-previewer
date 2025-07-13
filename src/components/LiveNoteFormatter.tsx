@@ -44,24 +44,85 @@ export const LiveNoteFormatter = () => {
   };
 
   const downloadPdf = async () => {
-    const previewElement = document.querySelector(".a4-paper");
+    // Select the first visible .a4-paper element
+    const previewElements = document.querySelectorAll('.a4-paper');
+    let previewElement: HTMLElement | null = null;
+    for (const el of previewElements) {
+      const htmlEl = el as HTMLElement;
+      const style = window.getComputedStyle(htmlEl);
+      if (style.display !== 'none' && style.visibility !== 'hidden' && htmlEl.offsetParent !== null) {
+        previewElement = htmlEl;
+        break;
+      }
+    }
     if (!previewElement) {
       toast({
         title: "PDF Error",
-        description: "A4 paper preview not found. PDF export failed.",
+        description: "A4 paper preview not found or not visible. PDF export failed.",
         variant: "destructive",
       });
       return;
     }
-    const canvas = await html2canvas(previewElement as HTMLElement, { scale: 3, useCORS: true });
-    const imgData = canvas.toDataURL("image/png", 1.0);
-    const pdf = new jsPDF({ orientation: "portrait", unit: "px", format: [canvas.width, canvas.height] });
-    pdf.addImage(imgData, "PNG", 0, 0, canvas.width, canvas.height, undefined, 'FAST');
-    pdf.save("notes.pdf");
-    toast({
-      title: "PDF Downloaded",
-      description: "Your A4 preview has been exported as a sharp PDF.",
-    });
+    // Check if previewElement has content
+    if (!previewElement.innerHTML.trim()) {
+      toast({
+        title: "PDF Error",
+        description: "No content to export. Please add some notes before downloading.",
+        variant: "destructive",
+      });
+      return;
+    }
+    // Wait for all images to load before capturing
+    const images = previewElement.querySelectorAll('img');
+    await Promise.all(Array.from(images).map(img => {
+      const image = img as HTMLImageElement;
+      if (image.complete) return Promise.resolve();
+      return new Promise(resolve => {
+        image.onload = image.onerror = resolve;
+      });
+    }));
+    try {
+      const canvas = await html2canvas(previewElement, { scale: 2, useCORS: true, allowTaint: true });
+      const a4Width = 794;
+      const a4Height = 1123;
+      const imgWidth = a4Width;
+      const imgHeight = Math.round(canvas.height * (a4Width / canvas.width));
+      const imgData = canvas.toDataURL("image/jpeg", 1.0);
+      const pdf = new jsPDF({ orientation: "portrait", unit: "px", format: [a4Width, a4Height] });
+      let position = 0;
+      let pageCount = 1;
+      while (position < imgHeight) {
+        pdf.addImage(
+          imgData,
+          "JPEG",
+          0,
+          0 - position,
+          imgWidth,
+          imgHeight
+        );
+        position += a4Height;
+        if (position < imgHeight) {
+          pdf.addPage([a4Width, a4Height], 'portrait');
+          pageCount++;
+        }
+      }
+      // Remove last page if it is blank (i.e., if the last page is empty due to overshooting)
+      if (pageCount > 1 && position - a4Height >= imgHeight) {
+        pdf.deletePage(pageCount);
+      }
+      pdf.save("notes.pdf");
+      toast({
+        title: "PDF Downloaded",
+        description: "Your A4 preview has been exported as a sharp PDF.",
+      });
+    } catch (err) {
+      console.error('PDF generation error:', err);
+      toast({
+        title: "PDF Error",
+        description: `Failed to generate PDF: ${err?.message || err}`,
+        variant: "destructive",
+      });
+    }
   };
 
   return (
