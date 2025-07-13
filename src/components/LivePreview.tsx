@@ -19,7 +19,7 @@ export const LivePreview = ({ blocks, fontSize, lineGap, paragraphGap, leftColum
       <h3 className="text-lg font-semibold text-foreground mb-4">Live Preview</h3>
       <div className="w-full max-w-[600px] mx-auto">
         <div className="a4-paper w-full">
-          <div className="notes-container grid grid-cols-2 gap-x-8">
+          <div className="notes-container grid grid-cols-2 gap-x-4">
             <div className="flex flex-col" style={{ rowGap: `${leftColumnGap}px` }}>
               {leftBlocks.length === 0 ? (
                 <div className="text-muted-foreground text-center py-8 col-span-2">
