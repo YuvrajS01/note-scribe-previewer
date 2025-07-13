@@ -31,7 +31,6 @@ A modern, interactive web application for creating, formatting, and exporting be
 - 🖥️ **Live Preview**: See your formatted notes in real time, exactly as they will appear in the exported PDF.
 - 📄 **A4 Paper Layout**: Notes are displayed in a two-column, A4-style layout for professional output.
 - 🔠 **Font Size Control**: Easily adjust font size for all content.
-- 📏 **Column Gap Control**: Fine-tune the vertical gap between blocks in each column.
 - 📤 **PDF Export**: Download your notes as a PDF that matches the live preview, including all formatting and images.
 - ⚡ **Instant Feedback**: Toast notifications for actions like adding, removing, or exporting content.
 - 🎨 **Modern UI**: Built with shadcn-ui and Tailwind CSS for a clean, responsive interface.
