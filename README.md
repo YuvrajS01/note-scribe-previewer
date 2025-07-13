@@ -101,22 +101,7 @@ The app will be available at `http://localhost:5173` (or as indicated in your te
 
 ## Deployment
 
-You can deploy this project using [Lovable](https://lovable.dev/projects/1be7557e-363c-4e11-9c54-6e20df69996c):
-
-1. Open the [Lovable Project](https://lovable.dev/projects/1be7557e-363c-4e11-9c54-6e20df69996c).
-2. Click on **Share → Publish**.
-
----
-
-## Custom Domain
-
-You can connect a custom domain to your Lovable project:
-
-1. Go to **Project > Settings > Domains**.
-2. Click **Connect Domain**.
-3. Follow the [step-by-step guide](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide).
-
----
+Deployed using vercel at https://short-note-formatter.vercel.app/
 
 ## Contributing
 
