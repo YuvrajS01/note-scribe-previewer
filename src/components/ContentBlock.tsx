@@ -18,7 +18,7 @@ export const ContentBlockComponent = ({ block, fontSize }: ContentBlockProps) =>
       <h3 style={{ fontSize: `${fontSize + 2}pt` }}>{block.topic}</h3>
       <div>
         {block.notes.split('\n').map((paragraph, index, arr) => (
-          <p key={index} style={{ fontSize: `${fontSize}pt`, marginBottom: index !== arr.length - 1 ? `12px` : 0, marginTop: 0 }}>{paragraph}</p>
+          <p key={index} style={{ fontSize: `${fontSize}pt`, marginBottom: index !== arr.length - 1 ? `4px` : 0, marginTop: 0 }}>{paragraph}</p>
         ))}
         {block.images && block.images.length > 0 && (
           <div className="block-images mt-2">

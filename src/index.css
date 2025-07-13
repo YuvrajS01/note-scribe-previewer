@@ -133,22 +133,22 @@
   .notes-container h3 {
     font-weight: bold;
     font-size: 11pt;
-    margin-top: 15px;
-    margin-bottom: 5px;
+    margin-top: 2px;
+    margin-bottom: 2px;
     color: hsl(var(--document-text));
     break-inside: avoid;
   }
   
   .notes-container p {
     margin-top: 0;
-    margin-bottom: 8px;
+    margin-bottom: 3px;
     text-align: justify;
     hyphens: auto;
   }
   
   .content-block {
     break-inside: avoid;
-    margin-bottom: 10px;
+    margin-bottom: 3px;
   }
   
   .block-images img {
