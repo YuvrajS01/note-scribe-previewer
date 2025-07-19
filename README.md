@@ -34,6 +34,7 @@ A modern, interactive web application for creating, formatting, and exporting be
 - 📤 **PDF Export**: Download your notes as a PDF that matches the live preview, including all formatting and images.
 - ⚡ **Instant Feedback**: Toast notifications for actions like adding, removing, or exporting content.
 - 🎨 **Modern UI**: Built with shadcn-ui and Tailwind CSS for a clean, responsive interface.
+- ⚡ **AI-Powered Note Generation**: Instantly generate detailed answers for your questions/topics using Google Gemini AI. Just toggle "Make with AI" in the input panel, enter your questions, and let the app add high-quality answers to your notes.
 
 ---
 
@@ -73,9 +74,25 @@ The app will be available at `http://localhost:5173` (or as indicated in your te
 
 ---
 
+## AI-Powered Note Generation
+
+- **How it works:**
+  - Toggle the "Make with AI" switch in the input panel.
+  - Enter one or more questions/topics (one per line).
+  - Click "Generate & Add to Document". The app will use Google Gemini to generate a detailed answer for each question and add it as a content block.
+  - Answers are formatted as a single paragraph (10–15 lines) per question, with multi-paragraph answers separated by `--` (double dash).
+  - The AI never returns extra text or preamble—just the answers, mapped to your questions.
+
+- **Privacy & Security:**
+  - Your Gemini API key is never exposed to the browser. All AI requests are securely proxied through a backend (local dev) or a Vercel serverless function (production).
+  - To use the AI feature in production, set your `GEMINI_API_KEY` as an environment variable in your Vercel project settings.
+
+---
+
 ## Usage Guide
 
 - **Add Content**: Use the input panel to add new content blocks (topic, notes, images).
+- **AI Answers**: Toggle "Make with AI" to generate answers for a list of questions/topics using Gemini AI.
 - **Edit & Organize**: See your content blocks appear in the live preview. Delete blocks or adjust font size and column gaps as needed.
 - **Live Preview**: The center panel shows your notes in a two-column, A4-paper style layout. All formatting updates in real time.
 - **Export PDF**: Click the 'Download Final PDF' button to export your notes. The PDF will look exactly like the live preview.
@@ -99,6 +116,9 @@ The app will be available at `http://localhost:5173` (or as indicated in your te
 ---
 
 ## Deployment
+
+- For AI features, you must set the `GEMINI_API_KEY` environment variable in your Vercel project settings (or in a `.env` file for local development).
+- The Gemini API is accessed securely via a Vercel serverless function at `/api/gemini`—your API key is never exposed to the client.
 
 Deployed using vercel at https://short-note-formatter.vercel.app/
 
